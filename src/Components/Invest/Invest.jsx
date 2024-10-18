@@ -9,7 +9,7 @@ function Invest() {
   let [{ btn }] = InvetData;
 
   return (
-    <div className="bg-[#2D3846] p-12">
+    <div className="bg-[#2D3846] p-6">
       <div className="flex items-center gap-8 text-white text-[80px] font-bold justify-center">
         <h1 className="lg:text-[80px] text-[40px] max-sm:text-[32px] ">
           {title}
