@@ -21,11 +21,11 @@ const Home = () => {
       <ThePerfect />
       <Comuty />
       <Whycode />
-      <Invest/>
-      <Hasty/>
-      <Award/>
-      <Form/>
-      <Footer/>
+      <Invest />
+      <Hasty />
+      <Award />
+      <Form />
+      <Footer />
     </HomeUi>
   );
 };

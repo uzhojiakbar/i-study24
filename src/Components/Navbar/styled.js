@@ -9,14 +9,15 @@ const NavWrapper = styled.div`
 
   width: 100vw;
   min-height: 80px;
+
   height: fit-content;
 `;
 
 const NavbarContainer = styled.nav`
-  padding: 0 20px;
   color: white;
-
+  width: 100%;
   position: relative;
+
   margin: 0 auto;
   max-width: 1920px;
   width: 100vw;

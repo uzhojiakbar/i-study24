@@ -4,9 +4,13 @@ const HeroContainer = styled.section`
   text-align: center;
   background-color: var(--header-backdound);
   color: white;
+
   min-height: 600px;
   height: fit-content;
   padding: 150px 20px;
+
+  width: 100vw;
+  max-width: 1920px;
 `;
 
 const Title = styled.h1`

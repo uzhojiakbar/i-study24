@@ -13,7 +13,7 @@ const Navigating = ({ login = false, icon = false }) => {
     return (
       <NavWrapper>
         <NavbarContainer>
-          <div className="bg-[#0b132b] text-white py-4">
+          <div className="bg-[#0b132b] text-white py-4 p-[10px] w-full">
             <div className="main-container">
               <div className="flex justify-between md:items-center flex-col md:flex-row">
                 <div
