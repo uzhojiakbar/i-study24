@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: "Inter", sans-serif;
+  transition: 0.3s;
+}
+
+.main {
+  max-width: 1920px;
+  width: 100vw;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+.line {
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 30%;
+  height: 3px;
+  border-radius: 2px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+:root {
+  --loader-color: #3d84f7;
+  --loader-bg-color: rgba(255, 255, 255, 0.4);
+
+  /* *Backgrounds */
+  --header-backdound: #0b132b;
+  --btn-bg: #3d84f7;
+  --navbar-backdound: #0b132b;
+
+  /* *BG HOVER */
+  --btn-hover-bg: #2b6fcc;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  margin-right: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 50px;
+  /* text-transform: ; */
+  margin-right: 2px;
+}
+
+/* ? HTML: <div class="loader"></div> */
+/**   <div className="loaderWindow"><div className="loader"></div></div>*/
+
+.loader {
+  width: 70px;
+  --b: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--loader-color);
+  -webkit-mask: repeating-conic-gradient(
+      #0000 0deg,
+      #000 1deg 70deg,
+      #0000 71deg 90deg
+    ),
+    radial-gradient(
+      farthest-side,
+      #0000 calc(100% - var(--b) - 1px),
+      #000 calc(100% - var(--b))
+    );
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect;
+  animation: l5 1s infinite;
+}
+.loaderWindow {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 111;
+  background-color: rgba(255, 255, 255, 0.2);
+
+  transition: 0.2s;
+}
+
+@keyframes l5 {
+  to {
+    transform: rotate(0.5turn);
+  }
+}
+
+.text {
+  color: #3a305b;
+}
+
+input {
+  color: black;
+  text-transform: lowercase;
+}
+
+/* *Input typeda shundoq ham text-transform ishlamaydi */
+/* input[type="password"] {
+  text-transform: none; 
+} */
+
+select {
+  color: black;
+}

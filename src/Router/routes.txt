@@ -1,0 +1,6 @@
+Routes:
+/
+account/register
+account/sign-in
+
+
