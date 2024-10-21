@@ -3,18 +3,20 @@ import { CiSearch } from "react-icons/ci";
 import { IoIosClose } from "react-icons/io";
 import { blogPost, blogsData } from '../../Utils/blogData';
 import { MdOutlineTimer } from "react-icons/md";
+import Footer from '../Footer/Footer';
+import Navigating from '../Navbar/Navbar';
 function Blog() {
     const [values, setValues] = useState('')
     const clearFunc = () => {
         setValues("")
     }
-
-
+    
     return (
+        <>
+        <Navigating login={true}/>
         <div className='lg:p-24 md:p-12 p-6'>
             <h1 className='text-3xl font-bold text-center'>Blog</h1>
             <div className='lg:flex gap-12 mt-20 justify-center'>
-
                 <div className=' lg:w-[75%] w-full max-w-[900px] p-2 '>
                     <div className='flex  gap-8'>
                         <div className='w-[75%] max-sm:w-full relative'>
@@ -24,7 +26,6 @@ function Blog() {
                         </div>
                         <button className='border-2 border-blue-500 w-[25%] py-2 rounded-[8px] text-xl font-bold text-blue-500 max-sm:hidden'>Search</button>
                     </div>
-
                     <div className='mt-16 grid md:grid-cols-2 grid-cols-1 gap-6 '>
                         {blogsData?.map((item) => (
                             <div key={item.id} style={{ background: item.bgclolor }} className='p-6 flex flex-col items-start justify-end gap-3 text-white rounded-lg h-80'>
@@ -55,6 +56,9 @@ function Blog() {
                 </div>
             </div>
         </div >
+            <Footer short='1'/>
+        </>
+
     )
 }
 

@@ -1,10 +1,10 @@
 import React from "react";
 import { footerData, footerNav, linkedinData } from "../../Utils/footerData";
 import google from '../../assets/googlelogo.svg'
-function Footer() {
+function Footer({short=0}) {
   return (
     <div className="bg-[#18171D] pb-5">
-      <div className="grid md:grid-cols-4 lg:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-7 p-16">
+      {short==1?'':<div className="grid md:grid-cols-4 lg:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-7 p-16">
         {footerData?.map((item) => (
           <div key={item.id}>
             <p className="text-white font-semibold">{item.title}</p>
@@ -42,7 +42,7 @@ function Footer() {
             <option value="1">France</option>
           </select>
         </p>
-      </div>
+      </div>}
       <div className="bg-gray-800 border-t border-gray-500 grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-6 py-6 items-center px-6">
         {linkedinData?.map((item) => (
           <div key={item.id} className="flex cursor-pointer px-3 items-center gap-3 whitespace-nowrap ">
