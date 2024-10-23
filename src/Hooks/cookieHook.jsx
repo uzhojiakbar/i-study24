@@ -13,7 +13,6 @@ function getCookie(name) {
   return null;
 }
 
-// Cookie-dan ID ni o'chirish
 function delCookie(name) {
   document.cookie = name + "=; Max-Age=-99999999; path=/;";
 }

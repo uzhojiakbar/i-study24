@@ -1,14 +1,118 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import { IoIosArrowDown } from "react-icons/io";
 import { FiMenu } from "react-icons/fi";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { NavbarUser } from "../../Utils/newNavbar";
-import { Logo, NavWrapper, NavbarContainer, ProfileBar } from "./styled.js";
+import {
+  GoToProfileButton,
+  Logo,
+  NavWrapper,
+  NavbarContainer,
+  ProfileBar,
+  ProfileBarButton,
+} from "./styled.js";
 import { SiteTexts } from "../../Utils/texts.js";
+import { LogoutOutlined, SettingOutlined } from "@ant-design/icons";
+import { Dropdown, Space } from "antd";
+import { useGetProfile, useLogOut } from "../../Hooks/RegisterHook.jsx";
+import ChangeSettings from "../../Pages/Profile/changeSettings/changeSettings.jsx";
+import { IoHelpOutline } from "react-icons/io5";
 
 const Navigating = ({ login = false, icon = false }) => {
   const [toggle, setToggle] = useState(false);
+  const [ProfileData, setProfileData] = useState(null);
+  const { data: profInfo } = useGetProfile();
+  const logOut = useLogOut(); // logOut hookni olish
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const changeSettings = searchParams.get("changeSettings") === "true";
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (profInfo) {
+      setProfileData(profInfo);
+      console.log(profInfo);
+    }
+  }, [profInfo]);
+
+  const handleSettingsClick = (profile = 0, page) => {
+    if (page) {
+      navigate(page);
+      return;
+    }
+    if (profile) {
+      navigate("/profile");
+      return;
+    }
+    window.location.href = "/profile?changeSettings=true"; // Settings sahifasiga yo'naltirish
+  };
+
+  const items = [
+    {
+      key: "1",
+      label: (
+        <GoToProfileButton
+          onClick={() => handleSettingsClick(1)}
+          style={{ cursor: "pointer" }}
+        >
+          <div className="name">
+            {ProfileData?.first_name} {ProfileData?.last_name}
+          </div>
+          <div className="name-desc">Hisobni ochish</div>
+        </GoToProfileButton>
+      ),
+      disabled: false,
+    },
+    {
+      type: "divider",
+    },
+
+    {
+      key: "2",
+      label: (
+        <ProfileBarButton
+          onClick={() => handleSettingsClick(0, "/contact")}
+          style={{ cursor: "pointer" }}
+        >
+          <IoHelpOutline />
+          <div>Help</div>
+        </ProfileBarButton>
+      ),
+    },
+    {
+      key: "3",
+      label: (
+        <ProfileBarButton
+          onClick={() => handleSettingsClick(0)}
+          style={{ cursor: "pointer" }}
+        >
+          <SettingOutlined />
+          <div>Sozlamalar</div>
+        </ProfileBarButton>
+      ),
+    },
+    {
+      type: "divider",
+    },
+    {
+      key: "4",
+      label: (
+        <ProfileBarButton
+          logout="true"
+          onClick={logOut}
+          style={{ cursor: "pointer" }}
+        >
+          <LogoutOutlined />
+          <div>Hisobdan chiqish</div>
+        </ProfileBarButton>
+      ),
+    },
+  ];
+
   if (login == false)
     return (
       <NavWrapper>
@@ -93,7 +197,7 @@ const Navigating = ({ login = false, icon = false }) => {
   return (
     <NavWrapper>
       <NavbarContainer>
-        <div className="bg-white text-slate-900 py-4 relative">
+        <div className="bg-white text-slate-900 py-4 px-4 relative">
           <div className="main-container">
             <div className="flex justify-between md:items-center md:flex-row ">
               {/* *Mobile */}
@@ -174,6 +278,7 @@ const Navigating = ({ login = false, icon = false }) => {
                   </div>
 
                   {/* Profile Icon */}
+
                   <div className="flex items-center gap-4">
                     <ProfileBar>
                       {icon ? (
@@ -212,19 +317,36 @@ const Navigating = ({ login = false, icon = false }) => {
                   );
                 })}
               </div>
+
               <div className="profile-icon hidden md:block">
-                <ProfileBar>
-                  {icon ? (
-                    <img src={icon} alt="" className="w-10 h-10 rounded-full" />
-                  ) : (
-                    <b className="fa-regular fa-user"></b>
-                  )}
-                </ProfileBar>
+                <Dropdown
+                  menu={{
+                    items,
+                  }}
+                  trigger={["click"]}
+                >
+                  <a onClick={(e) => e.preventDefault()}>
+                    <Space>
+                      <ProfileBar>
+                        {icon ? (
+                          <img
+                            src={icon}
+                            alt=""
+                            className="w-10 h-10 rounded-full"
+                          />
+                        ) : (
+                          <b className="fa-regular fa-user"></b>
+                        )}
+                      </ProfileBar>
+                    </Space>
+                  </a>
+                </Dropdown>
               </div>
             </div>
           </div>
         </div>
       </NavbarContainer>
+      {changeSettings ? <ChangeSettings /> : <></>}
     </NavWrapper>
   );
 };
