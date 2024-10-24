@@ -1,14 +1,124 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import { IoIosArrowDown } from "react-icons/io";
-import { FiMenu } from "react-icons/fi";
-import { Link, NavLink } from "react-router-dom";
+import { FiLogOut, FiMenu } from "react-icons/fi";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { NavbarUser } from "../../Utils/newNavbar";
-import { Logo, NavWrapper, NavbarContainer, ProfileBar } from "./styled.js";
+import {
+  GoToProfileButton,
+  Logo,
+  NavWrapper,
+  NavbarContainer,
+  ProfileBar,
+  ProfileBarButton,
+} from "./styled.js";
 import { SiteTexts } from "../../Utils/texts.js";
+import {
+  BranchesOutlined,
+  LineOutlined,
+  LogoutOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
+import { Dropdown, Menu, Space } from "antd";
+import { useGetProfile, useLogOut } from "../../Hooks/RegisterHook.jsx";
+import ChangeSettings from "../../Pages/Profile/changeSettings/changeSettings.jsx";
+import { IoHelpOutline } from "react-icons/io5";
+import { RiFlipHorizontalLine } from "react-icons/ri";
 
 const Navigating = ({ login = false, icon = false }) => {
   const [toggle, setToggle] = useState(false);
+  const [ProfileData, setProfileData] = useState(null);
+  const { data: profInfo } = useGetProfile();
+  const logOut = useLogOut(); // logOut hookni olish
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const changeSettings = searchParams.get("changeSettings") === "true";
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (profInfo) {
+      setProfileData(profInfo);
+      console.log(profInfo);
+    }
+  }, [profInfo]);
+
+  const handleSettingsClick = (profile = 0, page) => {
+    if (page) {
+      navigate(page);
+      return;
+    }
+    if (profile) {
+      navigate("/profile");
+      return;
+    }
+    window.location.href = "/profile?changeSettings=true"; // Settings sahifasiga yo'naltirish
+  };
+
+  const items = [
+    {
+      key: "1",
+      label: (
+        <GoToProfileButton
+          onClick={() => handleSettingsClick(1)}
+          style={{ cursor: "pointer" }}
+        >
+          <div className="name">
+            {ProfileData?.first_name} {ProfileData?.last_name}
+          </div>
+          <div className="name-desc">Hisobni ochish</div>
+        </GoToProfileButton>
+      ),
+      disabled: false,
+    },
+    {
+      type: "divider",
+    },
+
+    {
+      key: "2",
+      label: (
+        <ProfileBarButton
+          onClick={() => handleSettingsClick(0, "/contact")}
+          style={{ cursor: "pointer" }}
+        >
+          <IoHelpOutline />
+          <div>Help</div>
+        </ProfileBarButton>
+      ),
+    },
+    {
+      key: "3",
+      label: (
+        <ProfileBarButton
+          onClick={() => handleSettingsClick(0)}
+          style={{ cursor: "pointer" }}
+        >
+          <SettingOutlined />
+          <div>Sozlamalar</div>
+        </ProfileBarButton>
+      ),
+    },
+    {
+      type: "divider",
+    },
+    {
+      key: "4",
+      label: (
+        <ProfileBarButton
+          logout="true"
+          onClick={logOut}
+          style={{ cursor: "pointer" }}
+        >
+          <LogoutOutlined />
+          <div>Hisobdan chiqish</div>
+        </ProfileBarButton>
+      ),
+    },
+  ];
+
   if (login == false)
     return (
       <NavWrapper>
@@ -93,7 +203,7 @@ const Navigating = ({ login = false, icon = false }) => {
   return (
     <NavWrapper>
       <NavbarContainer>
-        <div className="bg-white text-slate-900 py-4 relative">
+        <div className="bg-white text-slate-900 py-4 px-4 relative">
           <div className="main-container">
             <div className="flex justify-between md:items-center md:flex-row ">
               {/* *Mobile */}
@@ -145,9 +255,29 @@ const Navigating = ({ login = false, icon = false }) => {
                 } md:hidden w-[250px] p-4`}
               >
                 <div className="flex flex-col gap-6 h-full justify-between">
-                  {/* Links */}
-                  <div className="flex flex-col gap-4">
-                    {NavbarUser.map((v, i) => {
+                  {/* Yuqori qism */}
+                  <div className="flex flex-col gap-2">
+                    {/* Profile Icon */}
+                    <Space className="flex gap-[20px] pt-2 pb-4">
+                      <ProfileBar>
+                        {icon ? (
+                          <img
+                            src={icon}
+                            alt=""
+                            className="w-10 h-10 rounded-full"
+                          />
+                        ) : (
+                          <b className="fa-regular fa-user"></b>
+                        )}
+                      </ProfileBar>
+                      <div className="capitalize">
+                        {ProfileData?.first_name + "   "}{" "}
+                        {ProfileData?.last_name}
+                      </div>
+                    </Space>
+                    <hr />
+                    {/* Navbar Links */}
+                    {NavbarUser.map((v) => {
                       return v.type === "route" ? (
                         <NavLink
                           key={v.id}
@@ -163,7 +293,7 @@ const Navigating = ({ login = false, icon = false }) => {
                           className="flex justify-between items-center"
                         >
                           <span className="block p-2 text-lg rounded-lg">
-                            Parent
+                            {v.name}
                           </span>
                           <IoIosArrowDown />
                         </div>
@@ -171,22 +301,55 @@ const Navigating = ({ login = false, icon = false }) => {
                         <></>
                       );
                     })}
+
+                    <hr />
+
+                    <div className="">
+                      {/* <ProfileBarButton
+                        onClick={() => handleSettingsClick(0, "/contact")}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <IoHelpOutline />
+                        <div>Help</div>
+                      </ProfileBarButton>
+                      <ProfileBarButton
+                        onClick={() => handleSettingsClick(0)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <SettingOutlined />
+                        <div>Sozlamalar</div>
+                      </ProfileBarButton>
+                      <ProfileBarButton
+                        logout="true"
+                        onClick={logOut}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <LogoutOutlined />
+                        <div>Hisobdan chiqish</div>
+                      </ProfileBarButton> */}
+                      <div className="flex gap-2 items-center">
+                        <IoHelpOutline />
+                        <span className="block p-2 text-lg rounded-lg">
+                          Yordam
+                        </span>
+                      </div>
+                      <div className="flex gap-2 items-center">
+                        <SettingOutlined />
+                        <span className="block p-2 text-lg rounded-lg">
+                          Sozlamalar
+                        </span>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Profile Icon */}
-                  <div className="flex items-center gap-4">
-                    <ProfileBar>
-                      {icon ? (
-                        <img
-                          src={icon}
-                          alt=""
-                          className="w-10 h-10 rounded-full"
-                        />
-                      ) : (
-                        <b className="fa-regular fa-user"></b>
-                      )}
-                    </ProfileBar>
-                    <span className="text-lg">Profile</span>
+                  {/* Logout Button */}
+                  <div>
+                    <button
+                      className="flex items-center  gap-2 text-lg p-2 rounded-lg  hover:bg-red-700 transition-all duration-200"
+                      onClick={logOut}
+                    >
+                      <FiLogOut /> Log Out
+                    </button>
                   </div>
                 </div>
               </div>
@@ -204,7 +367,7 @@ const Navigating = ({ login = false, icon = false }) => {
                     </NavLink>
                   ) : v.type === "parent" ? (
                     <div key={v.id} className={linkClassName}>
-                      <div>parent</div>
+                      <div>{v.name}</div>
                       <IoIosArrowDown />
                     </div>
                   ) : (
@@ -212,19 +375,36 @@ const Navigating = ({ login = false, icon = false }) => {
                   );
                 })}
               </div>
+
               <div className="profile-icon hidden md:block">
-                <ProfileBar>
-                  {icon ? (
-                    <img src={icon} alt="" className="w-10 h-10 rounded-full" />
-                  ) : (
-                    <b className="fa-regular fa-user"></b>
-                  )}
-                </ProfileBar>
+                <Dropdown
+                  menu={{
+                    items,
+                  }}
+                  trigger={["click"]}
+                >
+                  <a onClick={(e) => e.preventDefault()}>
+                    <Space>
+                      <ProfileBar>
+                        {icon ? (
+                          <img
+                            src={icon}
+                            alt=""
+                            className="w-10 h-10 rounded-full"
+                          />
+                        ) : (
+                          <b className="fa-regular fa-user"></b>
+                        )}
+                      </ProfileBar>
+                    </Space>
+                  </a>
+                </Dropdown>
               </div>
             </div>
           </div>
         </div>
       </NavbarContainer>
+      {changeSettings ? <ChangeSettings /> : <></>}
     </NavWrapper>
   );
 };

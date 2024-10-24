@@ -45,7 +45,8 @@ const RouteControl = () => {
         }
       />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/blog" element={<Blog/> } />
+      <Route path="/blog" element={<Blog />} />
+      <Route path="/contact" element={<h1>Contact</h1>} />
       <Route path="*" element={<h1>Not Found</h1>} />
     </Routes>
   );

@@ -103,7 +103,6 @@ const CloseIcon = styled(RiCloseFill)`
 `;
 
 const ProfileBar = styled.div`
-  border: 1px solid rgba(0, 0, 0, 0.7);
   width: 50px;
   height: 50px;
 
@@ -132,6 +131,35 @@ const ProfileBar = styled.div`
   }
 `;
 
+const GoToProfileButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+
+  > .name {
+    text-transform: capitalize;
+    font-size: 18px;
+    font-weight: 900;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  }
+
+  > .name-desc {
+    text-transform: capitalize;
+    color: gray;
+  }
+`;
+
+const ProfileBarButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  padding: 5px;
+
+  color: ${({ logout }) => (logout === "true" ? "red" : "black")};
+`;
+
 export {
   NavWrapper,
   CloseIcon,
@@ -141,4 +169,6 @@ export {
   Logo,
   Menu,
   ProfileBar,
+  GoToProfileButton,
+  ProfileBarButton,
 };
