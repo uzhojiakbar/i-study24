@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 import { IoIosArrowDown } from "react-icons/io";
-import { FiMenu } from "react-icons/fi";
+import { FiLogOut, FiMenu } from "react-icons/fi";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { NavbarUser } from "../../Utils/newNavbar";
 import {
@@ -14,11 +14,17 @@ import {
   ProfileBarButton,
 } from "./styled.js";
 import { SiteTexts } from "../../Utils/texts.js";
-import { LogoutOutlined, SettingOutlined } from "@ant-design/icons";
-import { Dropdown, Space } from "antd";
+import {
+  BranchesOutlined,
+  LineOutlined,
+  LogoutOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
+import { Dropdown, Menu, Space } from "antd";
 import { useGetProfile, useLogOut } from "../../Hooks/RegisterHook.jsx";
 import ChangeSettings from "../../Pages/Profile/changeSettings/changeSettings.jsx";
 import { IoHelpOutline } from "react-icons/io5";
+import { RiFlipHorizontalLine } from "react-icons/ri";
 
 const Navigating = ({ login = false, icon = false }) => {
   const [toggle, setToggle] = useState(false);
@@ -249,9 +255,29 @@ const Navigating = ({ login = false, icon = false }) => {
                 } md:hidden w-[250px] p-4`}
               >
                 <div className="flex flex-col gap-6 h-full justify-between">
-                  {/* Links */}
-                  <div className="flex flex-col gap-4">
-                    {NavbarUser.map((v, i) => {
+                  {/* Yuqori qism */}
+                  <div className="flex flex-col gap-2">
+                    {/* Profile Icon */}
+                    <Space className="flex gap-[20px] pt-2 pb-4">
+                      <ProfileBar>
+                        {icon ? (
+                          <img
+                            src={icon}
+                            alt=""
+                            className="w-10 h-10 rounded-full"
+                          />
+                        ) : (
+                          <b className="fa-regular fa-user"></b>
+                        )}
+                      </ProfileBar>
+                      <div className="capitalize">
+                        {ProfileData?.first_name + "   "}{" "}
+                        {ProfileData?.last_name}
+                      </div>
+                    </Space>
+                    <hr />
+                    {/* Navbar Links */}
+                    {NavbarUser.map((v) => {
                       return v.type === "route" ? (
                         <NavLink
                           key={v.id}
@@ -267,7 +293,7 @@ const Navigating = ({ login = false, icon = false }) => {
                           className="flex justify-between items-center"
                         >
                           <span className="block p-2 text-lg rounded-lg">
-                            Parent
+                            {v.name}
                           </span>
                           <IoIosArrowDown />
                         </div>
@@ -275,23 +301,55 @@ const Navigating = ({ login = false, icon = false }) => {
                         <></>
                       );
                     })}
+
+                    <hr />
+
+                    <div className="">
+                      {/* <ProfileBarButton
+                        onClick={() => handleSettingsClick(0, "/contact")}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <IoHelpOutline />
+                        <div>Help</div>
+                      </ProfileBarButton>
+                      <ProfileBarButton
+                        onClick={() => handleSettingsClick(0)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <SettingOutlined />
+                        <div>Sozlamalar</div>
+                      </ProfileBarButton>
+                      <ProfileBarButton
+                        logout="true"
+                        onClick={logOut}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <LogoutOutlined />
+                        <div>Hisobdan chiqish</div>
+                      </ProfileBarButton> */}
+                      <div className="flex gap-2 items-center">
+                        <IoHelpOutline />
+                        <span className="block p-2 text-lg rounded-lg">
+                          Yordam
+                        </span>
+                      </div>
+                      <div className="flex gap-2 items-center">
+                        <SettingOutlined />
+                        <span className="block p-2 text-lg rounded-lg">
+                          Sozlamalar
+                        </span>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Profile Icon */}
-
-                  <div className="flex items-center gap-4">
-                    <ProfileBar>
-                      {icon ? (
-                        <img
-                          src={icon}
-                          alt=""
-                          className="w-10 h-10 rounded-full"
-                        />
-                      ) : (
-                        <b className="fa-regular fa-user"></b>
-                      )}
-                    </ProfileBar>
-                    <span className="text-lg">Profile</span>
+                  {/* Logout Button */}
+                  <div>
+                    <button
+                      className="flex items-center  gap-2 text-lg p-2 rounded-lg  hover:bg-red-700 transition-all duration-200"
+                      onClick={logOut}
+                    >
+                      <FiLogOut /> Log Out
+                    </button>
                   </div>
                 </div>
               </div>
@@ -309,7 +367,7 @@ const Navigating = ({ login = false, icon = false }) => {
                     </NavLink>
                   ) : v.type === "parent" ? (
                     <div key={v.id} className={linkClassName}>
-                      <div>parent</div>
+                      <div>{v.name}</div>
                       <IoIosArrowDown />
                     </div>
                   ) : (
