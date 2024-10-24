@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 
 import { IoIosArrowDown } from "react-icons/io";
@@ -14,23 +13,17 @@ import {
   ProfileBarButton,
 } from "./styled.js";
 import { SiteTexts } from "../../Utils/texts.js";
-import {
-  BranchesOutlined,
-  LineOutlined,
-  LogoutOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
-import { Dropdown, Menu, Space } from "antd";
+import { LogoutOutlined, SettingOutlined } from "@ant-design/icons";
+import { Dropdown, Space } from "antd";
 import { useGetProfile, useLogOut } from "../../Hooks/RegisterHook.jsx";
 import ChangeSettings from "../../Pages/Profile/changeSettings/changeSettings.jsx";
 import { IoHelpOutline } from "react-icons/io5";
-import { RiFlipHorizontalLine } from "react-icons/ri";
 
 const Navigating = ({ login = false, icon = false }) => {
   const [toggle, setToggle] = useState(false);
   const [ProfileData, setProfileData] = useState(null);
   const { data: profInfo } = useGetProfile();
-  const logOut = useLogOut(); // logOut hookni olish
+  const logOut = useLogOut();
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
