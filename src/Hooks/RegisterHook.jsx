@@ -178,14 +178,14 @@ export const useGetGroup = () => {
 
 export const useGetGroupName = (id) => {
   return useQuery({
-    queryKey: ["getGroupName"],
+    queryKey: ["getGroupName", id], // Dinamik queryKey
     queryFn: async () => {
       const response = await instance.get(`/account/groupsatt/${id}/`);
-      return response.data;
+      return response?.data?.name;
     },
     refetchOnWindowFocus: false,
     onSuccess: (data) => {
-      console.log("Guruh muvaffaqiyatli olindi.", data);
+      console.log("Guruh muvaffaqiyatli olindi:", data);
     },
     onError: (error) => {
       console.error("Guruh olishda xatolik:", error);
