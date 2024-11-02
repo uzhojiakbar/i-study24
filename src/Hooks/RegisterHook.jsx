@@ -175,6 +175,20 @@ export const useGetGroup = () => {
     },
   });
 };
+export const useGetCourse = () => {
+  return useQuery({
+    queryKey: ["getCourse"],
+    queryFn: () => instance.get("/api/lessons/"),
+    refetchOnWindowFocus: false,
+    select: (data) => data?.data || [],
+    onSuccess: () => {
+      console.log("Guruhlar yuklandi");
+    },
+    onError: (error) => {
+      notify("err", "Guruhlarni yuklashda xatolik yuzaga keldi.");
+    },
+  });
+};
 
 export const useGetGroupName = (id) => {
   return useQuery({

@@ -131,7 +131,7 @@ const Navigating = ({ login = false, icon = false }) => {
                         to="/"
                         className="text-[18px] lg:text-2xl font-semibold"
                       >
-                        Sololearn
+                        I-Study24
                       </Link>
                     </Logo>
                   </div>
@@ -211,7 +211,7 @@ const Navigating = ({ login = false, icon = false }) => {
                       to="/"
                       className="text-[18px] lg:text-2xl font-semibold"
                     >
-                      Sololearn
+                      I-Study24
                     </Link>
                   </div>
 

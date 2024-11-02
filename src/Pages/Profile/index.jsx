@@ -11,13 +11,15 @@ import {
   StreakSection,
 } from "./styled";
 import avatarUrl from "../../assets/profile/hojiakbar.jpg"; // Avatar rasmi uchun
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [ProfileData, setProfileData] = useState(null); // Boshlang'ich qiymat null
   const [loading, setLoading] = useState(true); // Boshlang'ich qiymat true
   const { data: profInfo } = useGetProfile();
   const { data: group } = useGetGroupName(ProfileData?.group_name); // groupName oling
-  console.log("GUruh nomi:  ", group);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (profInfo) {
@@ -50,7 +52,7 @@ const Profile = () => {
             <b>Guruh:</b> {group}
           </Info>
 
-          <Button>O'rganishni boshlash.</Button>
+          <Button onClick={() => navigate("/lessons")}>Darslarga o`tish</Button>
 
           <StreakSection>
             <StreakItem>
