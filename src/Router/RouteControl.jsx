@@ -9,6 +9,7 @@ import Profile from "../Pages/Profile";
 import UserRoute from "../Components/Navigates/ProfileRoute";
 import Blog from "../Components/Blog/Blog";
 import Lessons from "../Pages/Lessons/Learn";
+import Lesson from "../Pages/Lesson/Lesson";
 
 const RouteControl = () => {
   return (
@@ -45,10 +46,40 @@ const RouteControl = () => {
           </UserRoute>
         }
       />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/blog" element={<Blog />} />
+      <Route
+        path="/profile"
+        element={
+          <NotAuth profile={0}>
+            <Profile />
+          </NotAuth>
+        }
+      />
+      <Route
+        path="/blog"
+        element={
+          <NotAuth profile={0}>
+            {" "}
+            <Blog />
+          </NotAuth>
+        }
+      />
       <Route path="/contact" element={<h1>Contact</h1>} />
-      <Route path="/lessons" element={<Lessons />} />
+      <Route
+        path="/lessons"
+        element={
+          <NotAuth profile={0}>
+            <Lessons />
+          </NotAuth>
+        }
+      />
+      <Route
+        path="/lesson/:lessonid"
+        element={
+          <NotAuth profile={0}>
+            <Lesson />
+          </NotAuth>
+        }
+      />
       <Route path="*" element={<h1>Not Found</h1>} />
     </Routes>
   );

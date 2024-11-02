@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getFromLS } from "../Hooks/localstorageHook";
+import { getCookie } from "../Hooks/cookieHook";
 
 export const instance = axios.create({
   baseURL: "https://solonammqi.pythonanywhere.com/",
@@ -10,7 +10,7 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const token = getFromLS("access");
+    const token = getCookie("access");
     // console.log(config);
     if (token) {
       config.headers.authorization = `Bearer ${token}`;

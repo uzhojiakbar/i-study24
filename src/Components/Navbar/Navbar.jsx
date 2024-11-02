@@ -18,12 +18,16 @@ import { Dropdown, Space } from "antd";
 import { useGetProfile, useLogOut } from "../../Hooks/RegisterHook.jsx";
 import ChangeSettings from "../../Pages/Profile/changeSettings/changeSettings.jsx";
 import { IoHelpOutline } from "react-icons/io5";
+import { getCookie } from "../../Hooks/cookieHook.jsx";
 
-const Navigating = ({ login = false, icon = false }) => {
+const Navigating = ({ icon = false }) => {
   const [toggle, setToggle] = useState(false);
   const [ProfileData, setProfileData] = useState(null);
   const { data: profInfo } = useGetProfile();
   const logOut = useLogOut();
+
+  const login =
+    (getCookie("access")?.length || 0) && (getCookie("login")?.length || 0);
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
