@@ -4,8 +4,8 @@ import { MyCourse } from "./styled";
 import { useGetCourse } from "../../Hooks/RegisterHook";
 
 const Lessons = () => {
-  const [courses, setCourses] = useState(null); // Boshlang'ich qiymat null
-  const [loading, setLoading] = useState(true); // Boshlang'ich qiymat true
+  const [courses, setCourses] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { data: coursesdata } = useGetCourse();
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const Lessons = () => {
       setCourses(coursesdata);
       console.log(coursesdata);
 
-      setLoading(false); // Loadingni false qilamiz
+      setLoading(false);
     }
   }, [coursesdata]);
 
@@ -22,11 +22,11 @@ const Lessons = () => {
       <Navigating login={1} />
       <div className="flex justify-center items-center h-[80vh]">
         <MyCourse>
-          <MyCourse.Title>My Courses</MyCourse.Title>
+          <MyCourse.Title>Kurslar</MyCourse.Title>
           <MyCourse.Courses>
             {courses?.map((v) => {
               return (
-                <MyCourse.Card key={v.id}>
+                <MyCourse.Card to={`/lesson/${v.id}`} key={v.id}>
                   <MyCourse.Icon>🖥️</MyCourse.Icon>
                   <MyCourse.Name>{v?.title}</MyCourse.Name>
                   <MyCourse.Desc>{v?.description}</MyCourse.Desc>

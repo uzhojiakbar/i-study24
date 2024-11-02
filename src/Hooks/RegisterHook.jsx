@@ -3,8 +3,7 @@ import { instance } from "../api/api";
 import toast from "react-hot-toast";
 // import { addToLS } from "./localstorageHook";
 import { delCookie, getCookie, setCookie } from "./cookieHook";
-import { Navigate, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const notify = (type = "ok", text) => {
   if (type === "ok") {
@@ -175,6 +174,7 @@ export const useGetGroup = () => {
     },
   });
 };
+
 export const useGetCourse = () => {
   return useQuery({
     queryKey: ["getCourse"],
@@ -182,10 +182,28 @@ export const useGetCourse = () => {
     refetchOnWindowFocus: false,
     select: (data) => data?.data || [],
     onSuccess: () => {
-      console.log("Guruhlar yuklandi");
+      console.log("Darslar yuklandi");
     },
     onError: (error) => {
-      notify("err", "Guruhlarni yuklashda xatolik yuzaga keldi.");
+      notify("err", "Darslar yuklanishida xatolik yuzaga keldi.");
+    },
+  });
+};
+
+export const useGetCourseWithId = (id) => {
+  return useQuery({
+    queryKey: ["getCourseWithId", id],
+    queryFn: () => instance.get(`/api/lessons/${id}/`),
+    refetchOnWindowFocus: false,
+    select: (data) => {
+      console.log(data);
+      data?.data || {};
+    },
+    onSuccess: () => {
+      console.log(`${id} darsi - yuklandi`);
+    },
+    onError: (error) => {
+      notify("err", `${id} darsi  yuklashda xatolik yuzaga keldi.`);
     },
   });
 };

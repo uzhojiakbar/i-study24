@@ -73,6 +73,16 @@ export const NavbarUser = [
     children: [],
     type: "route",
   },
+  {
+    id: 3,
+    name: "Darslar",
+    element: <h1>Liderlar</h1>,
+    path: "/lessons",
+    visible: "only-user",
+    hidden: false,
+    children: [],
+    type: "route",
+  },
   // {
   //   id: 3,
   //   name: "Code Bits",
