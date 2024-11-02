@@ -175,17 +175,31 @@ export const useGetGroup = () => {
     },
   });
 };
+export const useGetCourse = () => {
+  return useQuery({
+    queryKey: ["getCourse"],
+    queryFn: () => instance.get("/api/lessons/"),
+    refetchOnWindowFocus: false,
+    select: (data) => data?.data || [],
+    onSuccess: () => {
+      console.log("Guruhlar yuklandi");
+    },
+    onError: (error) => {
+      notify("err", "Guruhlarni yuklashda xatolik yuzaga keldi.");
+    },
+  });
+};
 
 export const useGetGroupName = (id) => {
   return useQuery({
-    queryKey: ["getGroupName"],
+    queryKey: ["getGroupName", id], // Dinamik queryKey
     queryFn: async () => {
       const response = await instance.get(`/account/groupsatt/${id}/`);
-      return response.data;
+      return response?.data?.name;
     },
     refetchOnWindowFocus: false,
     onSuccess: (data) => {
-      console.log("Guruh muvaffaqiyatli olindi.", data);
+      console.log("Guruh muvaffaqiyatli olindi:", data);
     },
     onError: (error) => {
       console.error("Guruh olishda xatolik:", error);

@@ -8,6 +8,7 @@ import NotAuth from "../Components/Navigates/NotAuth";
 import Profile from "../Pages/Profile";
 import UserRoute from "../Components/Navigates/ProfileRoute";
 import Blog from "../Components/Blog/Blog";
+import Lessons from "../Pages/Lessons/Learn";
 
 const RouteControl = () => {
   return (
@@ -47,6 +48,7 @@ const RouteControl = () => {
       <Route path="/profile" element={<Profile />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/contact" element={<h1>Contact</h1>} />
+      <Route path="/lessons" element={<Lessons />} />
       <Route path="*" element={<h1>Not Found</h1>} />
     </Routes>
   );
