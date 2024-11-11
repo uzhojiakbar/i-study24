@@ -19,6 +19,7 @@ import { useGetProfile, useLogOut } from "../../Hooks/RegisterHook.jsx";
 import ChangeSettings from "../../Pages/Profile/changeSettings/changeSettings.jsx";
 import { IoHelpOutline } from "react-icons/io5";
 import { getCookie } from "../../Hooks/cookieHook.jsx";
+import iconProfile from "../../assets/profile/hojiakbar.jpg";
 
 const Navigating = ({ icon = false }) => {
   const [toggle, setToggle] = useState(false);
@@ -154,23 +155,23 @@ const Navigating = ({ icon = false }) => {
                 >
                   <Link
                     to="/"
-                    className="cursor-pointer transition-all duration-300 hover:text-cyan-500"
+                    className="cursor-pointer transition-all duration-300 textWonderful"
                   >
                     Subjects
                   </Link>
-                  <div className="flex cursor-pointer transition-all duration-300 hover:text-cyan-500 items-center gap-1">
+                  <div className="flex cursor-pointer transition-all duration-300 textWonderful items-center gap-1">
                     <Link to="/">Code Compiler</Link>
                     <IoIosArrowDown />
                   </div>
                   <Link
                     to="/"
-                    className="cursor-pointer transition-all duration-300 hover:text-cyan-500"
+                    className="cursor-pointer transition-all duration-300 textWonderful"
                   >
                     Discuss
                   </Link>
                   <Link
                     to="/"
-                    className="cursor-pointer transition-all duration-300 hover:text-cyan-500"
+                    className="cursor-pointer transition-all duration-300 textWonderful"
                   >
                     Teams
                   </Link>
@@ -195,7 +196,7 @@ const Navigating = ({ icon = false }) => {
     );
 
   const linkClassName =
-    "flex gap-4 md:items-center flex-col md:flex-row overflow-hidden transition-all duration-300 md:h-auto text-[14px] lg:text-base cursor-pointer  hover:text-cyan-500";
+    "flex gap-4 md:items-center flex-col md:flex-row overflow-hidden transition-all duration-300 md:h-auto text-[14px] lg:text-base cursor-pointer textWonderful";
 
   return (
     <NavWrapper>
@@ -383,9 +384,9 @@ const Navigating = ({ icon = false }) => {
                   <a onClick={(e) => e.preventDefault()}>
                     <Space>
                       <ProfileBar>
-                        {icon ? (
+                        {1 ? (
                           <img
-                            src={icon}
+                            src={iconProfile}
                             alt=""
                             className="w-10 h-10 rounded-full"
                           />

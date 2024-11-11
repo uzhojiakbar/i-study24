@@ -131,3 +131,16 @@ input {
 select {
   color: black;
 }
+
+.textWonderful {
+  text-decoration: none;
+  color: #000;
+  font-size: 18px;
+  font-family: "Vela Sans GX", sans-serif;
+  font-weight: 800;
+}
+
+.textWonderful:hover {
+  color: #0025a2;
+  font-family: "Vela Sans GX Regular", sans-serif;
+}

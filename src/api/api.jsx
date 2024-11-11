@@ -2,7 +2,8 @@ import axios from "axios";
 import { getCookie } from "../Hooks/cookieHook";
 
 export const instance = axios.create({
-  baseURL: "https://solonammqi.pythonanywhere.com/",
+  // baseURL: "https://solonammqi.pythonanywhere.com/",
+  baseURL: "https://education-api.namsoft.uz/",
   // headers: {
   //     "Content-Type": "application/json",
   // },

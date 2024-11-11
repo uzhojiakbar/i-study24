@@ -39,19 +39,24 @@ MyCourse.Card = styled(NavLink)`
   border-radius: 12px;
   padding: 20px;
   width: 200px;
-  height: 250px;
+  height: 230px;
 
   display: flex;
   justify-content: center;
   flex-direction: column;
 
   cursor: pointer;
+  position: relative;
 
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.5s ease-in-out;
+  /* box-shadow: 0 4px 0 rgba(107, 127, 153, 0.5); */
+  border: 1.8px solid #dce2e5;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
 
   &:hover {
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    top: -3px;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.4);
   }
 `;
 
@@ -72,6 +77,13 @@ MyCourse.Name = styled.h2`
 MyCourse.Desc = styled.p`
   font-size: 18px;
   color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+  height: 300px;
+  overflow: hidden;
+`;
+MyCourse.isComp = styled.p`
+  font-size: 18px;
+  color: #ecaa00;
   font-weight: 500;
   height: 300px;
   overflow: hidden;

@@ -189,6 +189,20 @@ export const useGetCourse = () => {
     },
   });
 };
+export const useGetTopics = () => {
+  return useQuery({
+    queryKey: ["getCourse"],
+    queryFn: () => instance.get("/api/lessons/"),
+    refetchOnWindowFocus: false,
+    select: (data) => data?.data || [],
+    onSuccess: () => {
+      console.log("Darslar yuklandi");
+    },
+    onError: (error) => {
+      notify("err", "Darslar yuklanishida xatolik yuzaga keldi.");
+    },
+  });
+};
 
 export const useGetCourseWithId = (id) => {
   return useQuery({

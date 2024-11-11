@@ -29,7 +29,10 @@ const Lessons = () => {
                 <MyCourse.Card to={`/lesson/${v.id}`} key={v.id}>
                   <MyCourse.Icon>🖥️</MyCourse.Icon>
                   <MyCourse.Name>{v?.title}</MyCourse.Name>
-                  <MyCourse.Desc>{v?.description}</MyCourse.Desc>
+                  {/* <MyCourse.Desc>{v?.description}</MyCourse.Desc> */}
+                  <MyCourse.isComp>
+                    {v?.completed ? "Tugallangan" : "Tugallanmagan"}
+                  </MyCourse.isComp>
                 </MyCourse.Card>
               );
             })}

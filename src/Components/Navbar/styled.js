@@ -112,19 +112,23 @@ const ProfileBar = styled.div`
 
   cursor: pointer;
   background-color: rgba(201, 193, 193, 0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in;
   border-radius: 50%;
 
   &:hover {
     background-color: rgba(201, 193, 193, 0.4);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
   }
 
   &:active {
-    background-color: rgba(201, 193, 193, 0.1);
+    background-color: rgba(201, 193, 193, 0.5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   }
 
   > img {
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
   }
   > b {
     font-size: 20px;

@@ -90,8 +90,6 @@ const Register = () => {
       password: formData.password,
       first_name: formData.firstName,
       last_name: formData.lastName,
-      course: formData.course,
-      group_name: formData.groupName || null,
     };
 
     if (formData.password !== formData.repass) {
@@ -222,45 +220,7 @@ const Register = () => {
               </Label>
             </InputContainer>
 
-            <InputContainer>
-              <Label>
-                <Select
-                  name="course"
-                  required
-                  value={formData.course}
-                  onChange={handleChange}
-                >
-                  <option value="null">Kursni tanlang</option>
-                  <option value="1">1-kurs</option>
-                  <option value="2">2-kurs</option>
-                  <option value="3">3-kurs</option>
-                  <option value="4">4-kurs</option>
-                </Select>
-              </Label>
-            </InputContainer>
-            <InputContainer>
-              <Label>
-                <Select
-                  name="groupName"
-                  required
-                  value={formData.groupName}
-                  onChange={handleChange}
-                >
-                  <option value="null">Guruhni tanlang</option>
-                  {!loading
-                    ? GroupsAtt.map((v) => {
-                        return (
-                          <option key={v.id} value={+v?.id || null}>
-                            {v?.name}
-                          </option>
-                        );
-                      })
-                    : ""}
-                </Select>
-              </Label>
-            </InputContainer>
-
-            <SubmitButton type="submit">Sign up</SubmitButton>
+            <SubmitButton type="submit">Ro'yxatdan o'tish</SubmitButton>
           </Form>
         </FormContainer>
       </Container>

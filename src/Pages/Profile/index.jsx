@@ -4,7 +4,6 @@ import Navigating from "../../Components/Navbar/Navbar";
 import {
   Avatar,
   Button,
-  Info,
   Name,
   ProfileWrapper,
   StreakItem,
@@ -17,15 +16,15 @@ const Profile = () => {
   const [ProfileData, setProfileData] = useState(null); // Boshlang'ich qiymat null
   const [loading, setLoading] = useState(true); // Boshlang'ich qiymat true
   const { data: profInfo } = useGetProfile();
-  const { data: group } = useGetGroupName(ProfileData?.group_name); // groupName oling
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (profInfo) {
       setProfileData(profInfo);
+      console.log(profInfo);
 
-      setLoading(false); // Loadingni false qilamiz
+      setLoading(false);
     }
   }, [profInfo]);
 
@@ -44,13 +43,6 @@ const Profile = () => {
           <Name>
             {ProfileData?.first_name} {ProfileData?.last_name}{" "}
           </Name>
-          <Info>
-            🇺🇿 <b>Uzbekistan</b> ·{" "}
-            {ProfileData?.course ? `${ProfileData?.course}-kurs` : ""}
-          </Info>
-          <Info>
-            <b>Guruh:</b> {group}
-          </Info>
 
           <Button onClick={() => navigate("/lessons")}>Darslarga o`tish</Button>
 
